@@ -10,6 +10,10 @@ const PORT = 9000
 
 
 app.use(cors())
+
+api.get('/', (req, res) => {
+    res.send('THIS IS A TEST SERVER.')
+})
  
 api.get('/song/:id', (req, res) => {
     // generate file path
