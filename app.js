@@ -39,7 +39,8 @@ api.get('/', (req, res) => {
  
 api.get('/song/:id', (req, res) => {
     // generate file path
-    const filePath = path.resolve(__dirname, './private', `./${req.params.id}.ogg`)
+    
+    const filePath = path.resolve(__dirname, './private', `./${req.params.id}.wav`)
 
     //get file size info
     const stat = fileSystem.statSync(filePath)
