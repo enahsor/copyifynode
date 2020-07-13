@@ -16,7 +16,7 @@ const io = require('socket.io')(server)
 io.on('connection', (socket) => {
     const stream = socketStream.createStream()
     socket.on('track', (trackid) => {
-        const filePath = path.resolve(__dirname, './private', `./${trackid}.ogg`)
+        const filePath = path.resolve(__dirname, './private', `./${trackid}.mp3`)
 
         //get file info
         const stat = fileSystem.statSync(filePath)
