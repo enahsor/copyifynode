@@ -16,7 +16,7 @@ const io = require('socket.io')(server)
 io.on('connection', (socket) => {
     const stream = socketStream.createStream()
     socket.on('track', (trackid) => {
-        const filePath = path.resolve(__dirname, './private', `./${trackid}.wav`)
+        const filePath = path.resolve(__dirname, './private', `./${trackid}.mp3`)
 
         //get file info
         const stat = fileSystem.statSync(filePath)
@@ -40,7 +40,7 @@ api.get('/', (req, res) => {
 api.get('/song/:id', (req, res) => {
     // generate file path
     
-    const filePath = path.resolve(__dirname, './private', `./${req.params.id}.wav`)
+    const filePath = path.resolve(__dirname, './private', `./${req.params.id}.mp3`)
 
     //get file size info
     const stat = fileSystem.statSync(filePath)
