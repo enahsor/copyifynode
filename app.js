@@ -3,11 +3,29 @@ const http = require('http')
 const path = require('path')
 const fileSystem = require('fs')
 const cors = require('cors')
+const socketStream = require('socket.io-stream')
+
 
 const app = express()
 const api = express()
 const PORT =  process.env.PORT || 9000
 
+const server = http.createServer(app)
+const io = require('socket.io')(server)
+
+io.on('connection', (socket) => {
+    const stream = socketStream.createStream()
+    socket.on('track', (trackid) => {
+        const filePath = path.resolve(__dirname, './private', `./${trackid}.ogg`)
+
+        //get file info
+        const stat = fileSystem.statSync(filePath)
+        const readStream = fileSystem.createReadStream(filePath)
+
+        readStream.pipe(stream)
+        socketStream(socket).emit('track-stream', stream, {stat})
+    })
+})
 
 app.use(cors())
 
@@ -39,7 +57,7 @@ api.get('/song/:id', (req, res) => {
 
 app.use('/', api)
 
-const server = http.createServer(app)
+
 server.listen(PORT, () => {
     console.log(`Server started on port *:${PORT}`)
 })
