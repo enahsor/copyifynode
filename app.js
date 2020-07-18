@@ -18,11 +18,20 @@ app.use(cors())
 app.use(express.json())
 
 api.get('/track/:trackid', (req, res) => {
+    
     const trackid = req.params.trackid
     const filePath = path.resolve(__dirname, `./private`, `./${trackid}.mp3`)
+    const stat = fileSystem.statSync(filePath)
+
+    res.writeHead(200, {
+        'Content-Type': 'audio/mpeg',
+        'Content-Length': stat.size
+    })
     
     
-    res.send(filePath)
+    const readStream = fileSystem.createReadStream(filePath)
+
+    readStream.pipe(res)
 })
 
 api.get('/', (req, res) => {
