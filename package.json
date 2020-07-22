@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pm2-runtime start ecosystem.config.js --env production",    
+    "start": "pm2-runtime start ecosystem.config.js --env production",
     "dev": "nodemon app.js"
   },
   "keywords": [],
@@ -14,7 +14,6 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "node-rtsp-stream": "0.0.9",
     "pm2": "^4.4.0",
     "socket.io": "^2.3.0",
     "socket.io-stream": "^0.9.1"

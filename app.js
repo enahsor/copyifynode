@@ -7,18 +7,21 @@ const cors = require('cors')
 
 
 
+
 const app = express()
 const api = express()
 const PORT =  process.env.PORT || 9000
 
 const server = http.createServer(app)
+const ioserver = require('./ioserver')(server, path, fileSystem)
+
 
 
 app.use(cors())
 app.use(express.json())
 
 api.get('/track/:trackid', (req, res) => {
-    
+
     const trackid = req.params.trackid
     const filePath = path.resolve(__dirname, `./private`, `./${trackid}.mp3`)
     const stat = fileSystem.statSync(filePath)
