@@ -37,6 +37,13 @@ api.get('/track/:trackid', (req, res) => {
     readStream.pipe(res)
 })
 
+api.get('/song/:trackid', (req, res) => {
+    const trackid = req.params.trackid
+    const filePath = path.resolve(__dirname, `./private`, `./${trackid}.mp3`)
+
+    res.sendFile(filePath)
+})
+
 api.get('/', (req, res) => {
     res.send('<h2>Server is running</h2>')
 })
